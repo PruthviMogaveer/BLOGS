@@ -1,6 +1,8 @@
 import { Footer } from "./components";
 
 function App() {
+
+  console.log(import.meta.env.VITE_APPWRITE_URL);
   return (
     <div className=" flex-col">
       <div className="flex flex-wrap relative z-0">
