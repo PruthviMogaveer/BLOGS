@@ -1,21 +1,51 @@
+import { useEffect, useState } from "react";
 import { Footer } from "./components";
+import { useDispatch } from "react-redux";
+import authService from "./appwrite/auth_service";
+import { login, logout } from "./store/authSlice";
+import { Header } from "./components";
+import { Outlet } from "react-router-dom";
 
 function App() {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-  console.log(import.meta.env.VITE_APPWRITE_URL);
-  return (
+  useEffect(() => {
+    authService
+      .getCurrentUser()
+      .then((userData) => {
+        if (userData) {
+          dispatch(login({ userData }));
+        } else {
+          dispatch(logout());
+        }
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  return !loading ? (
     <div className=" flex-col">
       <div className="flex flex-wrap relative z-0">
         <div className="absolute top-[-9rem] left-[-9rem] w-[55rem] h-[30rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:left-[-30px] max-lg:w-[75rem]"></div>
         <div className="absolute top-[-9rem] right-[-10rem] w-[38rem] h-[40rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:hidden"></div>
       </div>
-      <div className="min-h-screen">hhhh</div>
+      <div className="min-h-screen relative z-10">
+        <Header />
+      </div>
+      <Outlet />
 
       <div className="relative mt-auto z-10 min-w-full">
         <Footer></Footer>
       </div>
     </div>
+  ) : (
+    <div className=" flex-col">
+      <div className="flex flex-wrap relative z-0">
+        <div className="absolute top-[-9rem] left-[-9rem] w-[55rem] h-[30rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:left-[-30px] max-lg:w-[75rem]"></div>
+        <div className="absolute top-[-9rem] right-[-10rem] w-[38rem] h-[40rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:hidden"></div>
+      </div>
+    </div>
   );
 }
 
-export default App
+export default App;

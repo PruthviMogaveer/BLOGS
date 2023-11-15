@@ -4,7 +4,6 @@ import { Client, ID, Databases, Storage, Query } from "appwrite";
 export class DatabaseService {
   client = new Client();
   databases;
-  bucket;
 
   constructor() {
     this.client
@@ -12,7 +11,6 @@ export class DatabaseService {
       .setProject(conf.appwriteProjectId);
 
     this.databases = new Databases(this.client);
-    this.bucket = new Storage(this.client);
   }
 
   async createPost({ title, slug, content, featurdImage, status, userId }) {
@@ -55,7 +53,29 @@ export class DatabaseService {
     }
   }
 
-  
+  async getPost(slug) {
+    try {
+      return await this.databases.getDocument(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        slug
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getPost :: error", error);
+    }
+  }
+
+  async getPosts(queries = [Query.equal("status", "active")]) {
+    try {
+      return await this.databases.listDocuments(
+        conf.appwriteDatabaseId,
+        conf.appwriteCollectionId,
+        queries
+      );
+    } catch (error) {
+      console.log("Appwrite service :: getPosts :: error", error);
+    }
+  }
 }
 
 const databaseService = new DatabaseService();
