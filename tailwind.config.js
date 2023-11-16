@@ -1,3 +1,5 @@
+import { yellow } from '@mui/material/colors'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -8,7 +10,7 @@ export default {
         montserrat: ["Montserrat", "sans-serif"],
       },
       colors: {
-        primary: "#425780",
+        primary: "#262E31",
         secondary: "#FFFFFF",
         yellow: "#F8D700",
         "slate-gray": "#6D6D6D",
