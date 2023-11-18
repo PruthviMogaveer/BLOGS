@@ -11,7 +11,7 @@ const LogoutBtn = () => {
   };
 
   return (
-    <button className="text-primary font-semibold text-lg max-lg:text-sm border-primary border px-4 py-1 rounded-2xl bg-transparent transition duration-300 hover:bg-primary hover:text-yellow">
+    <button className="font-montserrat text-primary font-semibold text-lg max-lg:text-sm border-primary border px-4 py-1 rounded-2xl bg-transparent transition-all duration-300 hover:bg-primary hover:text-yellow active:scale-90">
       Logout
     </button>
   );
