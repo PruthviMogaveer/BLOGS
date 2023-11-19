@@ -1,5 +1,5 @@
 import { LogoutBtn, Container } from "../index";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { headerLogo } from "../../assets/images";
 import { useEffect, useState } from "react";
@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const Header = () => {
   const authStatus = useSelector((state) => state.auth.status);
   const [positionEnd, setPositionEnd] = useState(!authStatus);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   useEffect(() => setPositionEnd(!authStatus), [authStatus]);
 

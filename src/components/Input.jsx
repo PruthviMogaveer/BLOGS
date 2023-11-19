@@ -5,7 +5,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import { useState } from "react";
 
 const Input = forwardRef(function Input(
-  { label, type = "text", className = "", width = "w-72", ...props },
+  { label, type = "text", className = "", ...props },
   ref
 ) {
   const [passVisible, setPassVisible] = useState(false);
@@ -16,26 +16,24 @@ const Input = forwardRef(function Input(
   };
 
   return (
-    <div
-      className={`${width} relative z-10 font-montserrat flex flex-col w-72`}
-    >
+    <div className={` relative z-10 font-montserrat flex flex-col sm:w-72`}>
       <input
         type={type == "password" ? (!passVisible ? type : "text") : type}
-        class={`${className} font-montserrat block w-full px-0 py-2 text-sm text-primary bg-transparent border-0 border-b-2 border-slate-gray appearance-none outline-none focus:ring-0 focus:border-primary duration-300 peer`}
+        className={`${className} font-montserrat block w-full px-0 py-2 text-sm max-lg:text-sm text-primary bg-transparent border-0 border-b-2 border-slate-gray appearance-none outline-none focus:ring-0 focus:border-primary duration-300 peer`}
         ref={ref}
         {...props}
         id={id}
       />
-      <div className="absolute right-1 top-2 ">
+      <div className="absolute right-1 top-2 cursor-pointer">
         {type == "password" ? (
           passVisible ? (
-            <button onClick={handleVisible}>
+            <div onClick={handleVisible}>
               <VisibilityIcon fontSize="small" />
-            </button>
+            </div>
           ) : (
-            <button onClick={handleVisible}>
+            <div onClick={handleVisible}>
               <VisibilityOffIcon fontSize="small" />
-            </button>
+            </div>
           )
         ) : (
           <></>
@@ -43,7 +41,7 @@ const Input = forwardRef(function Input(
       </div>
       {label && (
         <label
-          class={` absolute text-sm text-slate-gray duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto`}
+          className={` absolute text-sm text-slate-gray duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto`}
           htmlFor={id}
         >
           {label}
