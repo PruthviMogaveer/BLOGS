@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Footer, Signup, Header } from "./components";
+import { Footer, Header } from "./components";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth_service";
 import { login, logout } from "./store/authSlice";
@@ -32,7 +32,7 @@ function App() {
         <Header />
       </div>
       <div className="min-h-screen relative z-10">
-        <Signup/>
+        
         <Outlet />
       </div>
 
