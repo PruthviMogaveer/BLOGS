@@ -6,5 +6,6 @@ import Button from "./Button";
 import Input from "./Input";
 import Select from "./Select";
 import Login from "./Login";
+import Signup from "./Signup";
 
-export { Header, Footer, Container, LogoutBtn, Button, Input, Select, Login };
+export { Header, Footer, Container, LogoutBtn, Button, Input, Select, Login, Signup };

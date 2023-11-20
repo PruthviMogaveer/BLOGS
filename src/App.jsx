@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Footer, Login } from "./components";
+import { Footer, Signup, Header } from "./components";
 import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth_service";
 import { login, logout } from "./store/authSlice";
-import { Header } from "./components";
 import { Outlet } from "react-router-dom";
 
 function App() {
@@ -33,7 +32,7 @@ function App() {
         <Header />
       </div>
       <div className="min-h-screen relative z-10">
-        <Login/>
+        <Signup/>
         <Outlet />
       </div>
 
