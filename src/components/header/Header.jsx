@@ -12,7 +12,7 @@ const Header = () => {
   useEffect(() => setPositionEnd(!authStatus), [authStatus]);
 
   const navItems = [
-    { name: "Home", slug: "/", active: false },
+    { name: "Home", slug: "/", active: true },
     {
       name: "Login",
       slug: "/login",

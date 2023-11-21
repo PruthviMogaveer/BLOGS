@@ -82,7 +82,8 @@ const PostForm = ({ post }) => {
 
   return (
     <div className="flex justify-center mt-8 mb-28">
-      <div className="absolute w-[95%] bg-yellow h-6 top-3"></div>
+      <div className="absolute w-[95%] bg-yellow h-6 top-4"></div>
+      <div className="absolute w-6 h-full bg-yellow left-[52px] top-0"></div>
 
       <form
         onSubmit={handleSubmit(submit)}
