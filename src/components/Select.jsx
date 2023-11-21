@@ -4,13 +4,21 @@ const Select = ({ options, label, className = "", ...props }, ref) => {
   const id = useId();
 
   return (
-    <div className="w-full font-montserrat">
+    <div className="w-full font-montserrat relative">
       {label && (
-        <label htmlFor={id} className={``}>
+        <label
+          htmlFor={id}
+          className={`absolute -translate-y-6 scale-75  text-primary origin-[0]`}
+        >
           {label}
         </label>
       )}
-      <select id={id} className={`${className}`} {...props} ref={ref}>
+      <select
+        id={id}
+        className={`${className} border border-primary w-full h-10 font-montserrat text-base font-medium rounded-[4px] px-2 capitalize bg-transparent`}
+        {...props}
+        ref={ref}
+      >
         {options?.map((option) => (
           <option key={option} value={option}>
             {option}

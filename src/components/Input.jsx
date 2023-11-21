@@ -19,7 +19,12 @@ const Input = forwardRef(function Input(
     <div className={` relative z-10 font-montserrat flex flex-col sm:w-72`}>
       <input
         type={type == "password" ? (!passVisible ? type : "text") : type}
-        className={`${className} font-montserrat block w-full px-0 py-2 text-sm max-lg:text-sm text-primary bg-transparent border-0 border-b-2 border-slate-gray appearance-none outline-none focus:ring-0 focus:border-primary duration-300 peer`}
+        className={`${className} font-montserrat block w-full px-0 py-2 text-sm max-lg:text-sm text-primary bg-transparent ${
+          type === "password" ||
+          type === "search" ||
+          type === "email" ||
+          (type === "text" && "border-0 border-b-2 border-slate-gray")
+        }  appearance-none outline-none focus:ring-0 focus:border-primary duration-300 peer`}
         ref={ref}
         {...props}
         id={id}
@@ -41,7 +46,11 @@ const Input = forwardRef(function Input(
       </div>
       {label && (
         <label
-          className={` absolute text-sm text-slate-gray duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto`}
+          className={` absolute text-sm text-slate-gray duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] ${
+            props.readOnly
+              ? "-translate-y-6"
+              : "peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 peer-placeholder-shown:scale-100 peer-focus:scale-75 peer-focus:start-0 peer-focus:text-primary"
+          } rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto`}
           htmlFor={id}
         >
           {label}
