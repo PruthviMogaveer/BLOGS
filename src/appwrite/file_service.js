@@ -5,6 +5,10 @@ export class FileUploadService {
   client = new Client();
   bucket;
   constructor() {
+    this.client
+      .setEndpoint(conf.appwriteUrl)
+      .setProject(conf.appwriteProjectId);
+
     this.bucket = new Storage(this.client);
   }
 
@@ -12,7 +16,7 @@ export class FileUploadService {
     try {
       return await this.bucket.createFile(
         conf.appwriteBucketId,
-        ID.unique,
+        ID.unique(),
         file
       );
     } catch (error) {

@@ -14,11 +14,15 @@ const AllPosts = () => {
   return (
     <div>
       <Container>
-        <div>
+        <div className="flex flex-wrap justify-center max-sm:flex-col max-sm:justify-center mt-8 mx-10 max-sm:items-center max-sm:space-y-10">
           {posts.map((post) => {
-            <div key={post.$id}>
-              <PostCard post={post} />
-            </div>;
+            return (
+              post.status === "active" && (
+                <div key={post.$id} className="mx-4 mb-16">
+                  <PostCard {...post} />
+                </div>
+              )
+            );
           })}
         </div>
       </Container>

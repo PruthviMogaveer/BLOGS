@@ -18,7 +18,10 @@ export default {
       },
       boxShadow: {
         "3xl": "0 35px 60px -5px rgba(0, 0, 0, 0.3)",
-        "post": "0 10px 60px -5px rgba(0, 0, 0, 0.4)",
+        post: "0 10px 60px -5px rgba(0, 0, 0, 0.4)",
+      },
+      objectPosition: {
+        "postimage": "50% 20%",
       },
     },
   },

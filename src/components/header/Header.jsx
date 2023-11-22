@@ -1,5 +1,5 @@
 import { LogoutBtn, Container } from "../index";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { headerLogo } from "../../assets/images";
 import { useEffect, useState } from "react";
@@ -26,6 +26,11 @@ const Header = () => {
     {
       name: "All Post",
       slug: "/all-post",
+      active: authStatus,
+    },
+    {
+      name: "My Post",
+      slug: "/my-post",
       active: authStatus,
     },
     {
@@ -74,7 +79,7 @@ const Header = () => {
                 ) : null
               )}
               {authStatus && (
-                <li className="absolute w-full flex items-end justify-end max-lg:top-[-2px] max-lg:right-[-5rem] max-sm:right-[-6rem]">
+                <li className="absolute right-0 flex items-end justify-end max-lg:top-[-2px] max-lg:right-[-5rem] max-sm:right-[-6rem]">
                   <LogoutBtn />
                 </li>
               )}

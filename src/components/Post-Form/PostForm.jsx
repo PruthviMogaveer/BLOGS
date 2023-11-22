@@ -25,30 +25,29 @@ const PostForm = ({ post }) => {
     // If the post is already there and user wanted to edit it
     if (post) {
       const file = data.image[0]
-        ? fileUploadService.uploadFile(data.image[0])
+        ? await fileUploadService.uploadFile(data.image[0])
         : null;
       if (file) {
         fileUploadService.deleteFile(post.featuredImage);
       }
       const dbPost = await databaseService.updatePost(post.$id, {
         ...data,
-        featurdImage: file ? file.$id : undefined,
+        featuredImage: file ? file.$id : undefined,
       });
       if (dbPost) {
         navigate(`/post/${dbPost.id}`);
       }
     } //if use panted to create new post
     else {
-      const file = data.image[0]
-        ? fileUploadService.uploadFile(data.image[0])
-        : null;
+      const file = await fileUploadService.uploadFile(data.image[0]);
       if (file) {
         const fileId = file.$id;
-        data.featurdImage = fileId;
+        data.featuredImage = fileId;
         const dbPost = await databaseService.createPost({
           ...data,
           userId: userData.$id,
         });
+        console.log(dbPost);
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
         }
@@ -58,12 +57,7 @@ const PostForm = ({ post }) => {
 
   const slugTransform = useCallback((value) => {
     if (value && typeof value === "string") {
-      return (
-        value
-          .trim()
-          .toLowerCase()
-          .replace(/\s/g, "-")
-      );
+      return value.trim().toLowerCase().replace(/\s/g, "-");
     }
     return "";
   }, []);
@@ -131,7 +125,7 @@ const PostForm = ({ post }) => {
           {post && (
             <div className="w-full mb-4">
               <img
-                src={appwriteService.getFilePreview(post.featuredImage)}
+                src={fileUploadService.getFilePreview(post.featuredImage)}
                 alt={post.title}
                 width={300}
                 className="rounded-lg"

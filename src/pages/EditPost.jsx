@@ -20,9 +20,7 @@ const EditPost = () => {
 
   return post ? (
     <div>
-      <Container>
-        <PostForm post={post} />
-      </Container>
+      <PostForm post={post} />
     </div>
   ) : null;
 };

@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 import authService from "./appwrite/auth_service";
 import { login, logout } from "./store/authSlice";
 import { Outlet } from "react-router-dom";
-import Post from "./pages/Post";
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -33,7 +32,6 @@ function App() {
         <Header />
       </div>
       <div className="min-h-screen relative z-10">
-        <Post></Post>
         <Outlet />
       </div>
 

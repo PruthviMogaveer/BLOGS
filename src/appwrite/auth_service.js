@@ -23,7 +23,7 @@ export class AuthService {
       );
       if (userAccount) {
         //if the user account created then call login
-        this.login({ email, password });
+        return this.login({ email, password });
       } else {
         return userAccount;
       }
