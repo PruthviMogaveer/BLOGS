@@ -30,7 +30,7 @@ function App() {
       </div>
       {!loading ? (
         <>
-          <div className=" relative z-10">
+          <div className=" relative z-20">
             <Header />
           </div>
           <main className="min-h-screen relative z-10">

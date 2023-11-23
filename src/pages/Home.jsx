@@ -19,7 +19,7 @@ const Home = () => {
     posts.length > 0 ? (
       <div>
         <Container>
-          <div className="flex flex-wrap justify-center max-sm:flex-col max-sm:justify-center mt-8 mx-10 max-sm:items-center max-sm:space-y-10">
+          <div className="flex flex-wrap justify-center max-sm:flex-col max-sm:justify-center mt-8 mx-10 max-sm:items-center">
             {posts.map((post) => {
               return (
                 post.status === "active" && (
