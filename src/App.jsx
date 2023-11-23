@@ -22,29 +22,29 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  return !loading ? (
-    <div className=" flex-col">
+  return (
+    <div className=" flex-col min-h-screen">
       <div className="flex flex-wrap relative z-0">
         <div className="absolute top-[-9rem] left-[-9rem] w-[55rem] h-[30rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:left-[-30px] max-lg:w-[75rem]"></div>
         <div className="absolute top-[-9rem] right-[-10rem] w-[38rem] h-[40rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:hidden"></div>
       </div>
-      <div className=" relative z-10">
-        <Header />
-      </div>
-      <div className="min-h-screen relative z-10">
-        <Outlet />
-      </div>
-
-      <div className="relative mt-auto z-10 min-w-full">
-        <Footer></Footer>
-      </div>
-    </div>
-  ) : (
-    <div className=" flex-col">
-      <div className="flex flex-wrap relative z-0">
-        <div className="absolute top-[-9rem] left-[-9rem] w-[55rem] h-[30rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:left-[-30px] max-lg:w-[75rem]"></div>
-        <div className="absolute top-[-9rem] right-[-10rem] w-[38rem] h-[40rem] rounded-[80px] rotate-[10deg] bg-yellow z-0 max-lg:hidden"></div>
-      </div>
+      {!loading ? (
+        <>
+          <div className=" relative z-10">
+            <Header />
+          </div>
+          <div className="min-h-screen relative z-10">
+            <Outlet />
+          </div>
+          <div className="relative mt-auto z-10 min-w-full">
+            <Footer></Footer>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="min-h-screen bg-white opacity-40 relative z-10"></div>
+        </>
+      )}
     </div>
   );
 }

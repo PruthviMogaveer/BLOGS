@@ -11,6 +11,7 @@ import PostCard from "./PostCard";
 import RTE from "./RTE";
 import PostForm from "./Post-Form/PostForm";
 import AuthLayout from "./AuthLayout";
+import Loader from "./Loader";
 
 export {
   Header,
@@ -26,4 +27,5 @@ export {
   RTE,
   PostForm,
   AuthLayout,
+  Loader,
 };

@@ -21,9 +21,10 @@ const Input = forwardRef(function Input(
         type={type == "password" ? (!passVisible ? type : "text") : type}
         className={`${className} font-montserrat block w-full px-0 py-2 text-sm max-lg:text-sm text-primary bg-transparent ${
           (type === "password" ||
-          type === "search" ||
-          type === "email" ||
-          type === "text") && "border-0 border-b-2 border-slate-gray"
+            type === "search" ||
+            type === "email" ||
+            type === "text") &&
+          "border-0 border-b-2 border-slate-gray"
         }  appearance-none outline-none focus:ring-0 focus:border-primary duration-300 peer`}
         ref={ref}
         {...props}

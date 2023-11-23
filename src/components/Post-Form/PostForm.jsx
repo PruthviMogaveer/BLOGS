@@ -1,13 +1,16 @@
 import React, { useCallback } from "react";
 import { useForm } from "react-hook-form";
-import { Input, Button, RTE, Select } from "../index";
+import { Input, Button, RTE, Select, Loader } from "../index";
 import fileUploadService from "../../appwrite/file_service";
 import databaseService from "../../appwrite/database_service";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useState } from "react";
 
 const PostForm = ({ post }) => {
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -29,6 +32,7 @@ const PostForm = ({ post }) => {
   const userData = useSelector((state) => state.auth.userData);
 
   const submit = async (data) => {
+    setLoading(true);
     // If the post is already there and user wanted to edit it
     if (post) {
       const file = data.image[0]
@@ -43,6 +47,9 @@ const PostForm = ({ post }) => {
       });
       if (dbPost) {
         navigate(`/post/${dbPost.id}`);
+        setLoading(false);
+      } else {
+        setLoading(false);
       }
     } //if use panted to create new post
     else {
@@ -54,9 +61,12 @@ const PostForm = ({ post }) => {
           ...data,
           userId: userData.$id,
         });
-        console.log(dbPost);
+
         if (dbPost) {
           navigate(`/post/${dbPost.$id}`);
+          setLoading(false);
+        } else {
+          setLoading(false);
         }
       }
     }
@@ -81,7 +91,7 @@ const PostForm = ({ post }) => {
     };
   }, [watch, slugTransform, setValue]);
 
-  return (
+  return !loading ? (
     <div className="flex justify-center mt-8 mb-28">
       <div className="absolute w-[95%] bg-yellow h-6 top-4"></div>
       <div className="absolute w-6 h-full bg-yellow left-[52px] top-0"></div>
@@ -134,13 +144,13 @@ const PostForm = ({ post }) => {
         </div>
         <div className="w-auto max-lg:pr-10 flex flex-col space-y-8">
           <div className="relative">
-          <Input
-            label="Featured Image"
-            type="file"
-            accept="image/png, image/jpg, image/jpeg, image/gif"
-            {...register("image", { required: !post })}
-          />
-          <div className="text-red-500 -bottom-3 text-sm max-sm:text-xs absolute">
+            <Input
+              label="Featured Image"
+              type="file"
+              accept="image/png, image/jpg, image/jpeg, image/gif"
+              {...register("image", { required: !post })}
+            />
+            <div className="text-red-500 -bottom-3 text-sm max-sm:text-xs absolute">
               {errors.image && <p>Featurd image required</p>}
             </div>
           </div>
@@ -170,6 +180,8 @@ const PostForm = ({ post }) => {
         </div>
       </form>
     </div>
+  ) : (
+    <Loader />
   );
 };
 

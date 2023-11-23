@@ -6,11 +6,14 @@ import { ErrorMessage } from "@hookform/error-message";
 import { useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { Input, Button } from "./index";
+import ReactLoading from "react-loading";
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
@@ -21,6 +24,7 @@ const Signup = () => {
 
   const signup = async (data) => {
     setError("");
+    setLoading(true);
     try {
       const session = await authService.createAccount(data);
       if (session) {
@@ -29,8 +33,10 @@ const Signup = () => {
           dispatch(authLogin(userData));
         }
         navigate("/");
+        setLoading(false);
       }
     } catch (error) {
+      setLoading(false);
       setError(error.message);
       setValue("fullName", "");
       setValue("email", "");
@@ -44,7 +50,7 @@ const Signup = () => {
 
   return (
     <div className="w-full flex justify-center items-center p-10 max-lg:mt-10">
-      <div className=" bg-secondary h-[27rem] max-lg:h-[27rem] w-96 flex flex-col items-center justify-center space-y-5 rounded-2xl shadow-3xl">
+      <div className="relative bg-secondary h-[27rem] max-lg:h-[27rem] w-96 flex flex-col items-center justify-center space-y-5 rounded-2xl shadow-3xl">
         <h2 className="font-montserrat font-bold text-2xl max-lg:text-xl text-primary mb-2 max-lg:mb-2">
           Signup
         </h2>
@@ -53,7 +59,17 @@ const Signup = () => {
             onSubmit={handleSubmit(signup)}
             className="flex flex-col space-y-9"
           >
-            <div className="relative">
+            {loading && (
+              <div className="absolute z-10 bg-white opacity-60 left-0 top-0 rounded-2xl w-full h-full flex justify-center items-center">
+                <ReactLoading
+                  type="bars"
+                  color="black"
+                  height={80}
+                  width={70}
+                />
+              </div>
+            )}
+            <div className="relative z-0">
               <Input
                 label="Full name"
                 type="text"
@@ -66,7 +82,7 @@ const Signup = () => {
                 {errors.fullName && <p>Full name required</p>}
               </div>
             </div>
-            <div className="relative">
+            <div className="relative z-0">
               <Input
                 label="E-mail"
                 type="email"
@@ -83,7 +99,7 @@ const Signup = () => {
                 <ErrorMessage errors={errors} name="email" />
               </div>
             </div>
-            <div className="relative">
+            <div className="relative z-0">
               <Input
                 label="Password"
                 type="password"

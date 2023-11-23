@@ -5,7 +5,11 @@ import { Controller } from "react-hook-form";
 const RTE = ({ name, label, control, defaultValue = "" }) => {
   return (
     <div className="flex flex-col space-y-2">
-      {label && <label className="font-montserrat text-lg font-semibold p-2 text-primary">{label}</label>}
+      {label && (
+        <label className="font-montserrat text-lg font-semibold p-2 text-primary">
+          {label}
+        </label>
+      )}
       <Controller
         name={name || "content"}
         control={control}
@@ -14,8 +18,8 @@ const RTE = ({ name, label, control, defaultValue = "" }) => {
             <Editor
               initialValue={defaultValue}
               init={{
-                mobile:{
-                  height:350
+                mobile: {
+                  height: 350,
                 },
                 height: 500,
                 menubar: true,
