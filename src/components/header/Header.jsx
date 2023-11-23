@@ -44,7 +44,11 @@ const Header = () => {
     <header className="p-2">
       <Container>
         <nav className="flex flex-wrap relative mx-20">
-          <div className="mx-4 max-lg:mx-[-4rem] max-sm:mx-[-5.5rem]">
+          <div
+            className={`mx-4 max-lg:mx-[-4rem] ${
+              authStatus && "max-sm:-left-10"
+            } max-sm:relative`}
+          >
             <Link to="/">
               <img
                 src={headerLogo}
@@ -58,8 +62,8 @@ const Header = () => {
               className={`flex  ${
                 positionEnd
                   ? "items-end justify-end max-lg:absolute max-lg:right-[-5rem]"
-                  : "justify-center items-center"
-              } space-x-14 max-sm:space-x-5 w-full`}
+                  : "justify-center items-center max-sm:w-[13.3rem] max-sm:-left-3 max-sm:relative max-sm:space-x-4"
+              } space-x-14 max-sm:space-x-5 w-full `}
             >
               {navItems.map((item) =>
                 item.active ? (
@@ -79,7 +83,7 @@ const Header = () => {
                 ) : null
               )}
               {authStatus && (
-                <li className="absolute right-0 flex items-end justify-end max-lg:top-[-2px] max-lg:right-[-5rem] max-sm:right-[-6rem]">
+                <li className="absolute right-0 flex items-end justify-end max-lg:top-[-2px] max-lg:right-[-5rem] max-sm:right-[-6.5rem]">
                   <LogoutBtn />
                 </li>
               )}
