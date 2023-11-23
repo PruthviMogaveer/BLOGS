@@ -8,15 +8,22 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 const PostForm = ({ post }) => {
-  const { register, handleSubmit, watch, setValue, control, getValues } =
-    useForm({
-      defaultValues: {
-        title: post?.title || "",
-        slug: post?.slug || "",
-        content: post?.content || "",
-        status: post?.status || "active",
-      },
-    });
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    control,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: post?.title || "",
+      slug: post?.slug || "",
+      content: post?.content || "",
+      status: post?.status || "active",
+    },
+  });
 
   const navigate = useNavigate();
   const userData = useSelector((state) => state.auth.userData);
@@ -84,30 +91,40 @@ const PostForm = ({ post }) => {
         className="flex bg-white py-12 justify-center h-auto w-[95%] flex-wrap overflow-x-hidden rounded-xl shadow-post space-y-8 space-x-12"
       >
         <div className="w-2/3 flex flex-col space-y-8">
-          <Input
-            className=""
-            label="Title"
-            placeholder=""
-            type="text"
-            {...register("title", {
-              required: true,
-            })}
-          />
-          <Input
-            className=""
-            label="Slug"
-            readOnly={true}
-            placeholder=""
-            type="text"
-            {...register("slug", {
-              required: true,
-            })}
-            onInput={(e) =>
-              setValue("slug", slugTransform(e.currentTarget.value), {
-                shouldValidate: true,
-              })
-            }
-          />
+          <div className="relative">
+            <Input
+              className=""
+              label="Title"
+              placeholder=""
+              type="text"
+              {...register("title", {
+                required: true,
+              })}
+            />
+            <div className="text-red-500 text-sm max-sm:text-xs absolute">
+              {errors.title && <p>Title required</p>}
+            </div>
+          </div>
+          <div className="relative">
+            <Input
+              className=""
+              label="Slug"
+              readOnly={true}
+              placeholder=""
+              type="text"
+              {...register("slug", {
+                required: true,
+              })}
+              onInput={(e) =>
+                setValue("slug", slugTransform(e.currentTarget.value), {
+                  shouldValidate: true,
+                })
+              }
+            />
+            <div className="text-red-500 text-sm max-sm:text-xs absolute">
+              {errors.slug && <p>Slug required, go and edit title</p>}
+            </div>
+          </div>
           <RTE
             label="Content"
             name="content"
@@ -116,12 +133,17 @@ const PostForm = ({ post }) => {
           />
         </div>
         <div className="w-auto max-lg:pr-10 flex flex-col space-y-8">
+          <div className="relative">
           <Input
             label="Featured Image"
             type="file"
             accept="image/png, image/jpg, image/jpeg, image/gif"
             {...register("image", { required: !post })}
           />
+          <div className="text-red-500 -bottom-3 text-sm max-sm:text-xs absolute">
+              {errors.image && <p>Featurd image required</p>}
+            </div>
+          </div>
           {post && (
             <div className="w-full mb-4">
               <img
