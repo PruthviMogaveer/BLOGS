@@ -33,9 +33,9 @@ function App() {
           <div className=" relative z-10">
             <Header />
           </div>
-          <div className="min-h-screen relative z-10">
+          <main className="min-h-screen relative z-10">
             <Outlet />
-          </div>
+          </main>
           <div className="relative mt-auto z-10 min-w-full">
             <Footer></Footer>
           </div>

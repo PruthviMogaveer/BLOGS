@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Loader, PostCard } from "../components";
 import databaseService from "../appwrite/database_service";
-import ReactLoading from "react-loading";
 
 const AllPosts = () => {
   const [loading, setLoading] = useState(true);
