@@ -93,7 +93,7 @@ const Header = () => {
                     : "items-end justify-end "
                 }`}
               >
-                {windowWidth < 640 && (
+                {authStatus && windowWidth < 640 && (
                   <div
                     className="relative -left-16"
                     onClick={() => setMenuOpen(false)}
@@ -107,7 +107,7 @@ const Header = () => {
                     <li key={item.name}>
                       <NavLink
                         to={item.slug}
-                        // onClick={() => navigate(item.slug)} if we use button we use this insted of to
+                        onClick={() => setMenuOpen(false)}
                         className={({ isActive }) =>
                           isActive
                             ? `${
