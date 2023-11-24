@@ -93,12 +93,15 @@ const Header = () => {
                     : "items-end justify-end "
                 }`}
               >
-                <div
-                  className="relative -left-16"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  <CloseIcon fontSize="large" />
-                </div>
+                {windowWidth < 640 && (
+                  <div
+                    className="relative -left-16"
+                    onClick={() => setMenuOpen(false)}
+                  >
+                    <CloseIcon fontSize="large" />
+                  </div>
+                )}
+
                 {navItems.map((item) =>
                   item.active ? (
                     <li key={item.name}>
