@@ -40,14 +40,16 @@ const PostForm = ({ post }) => {
       if (file) {
         fileUploadService.deleteFile(post.featuredImage);
       }
-      await databaseService.updatePost(post.$id, {
+      const dbPost = await databaseService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
-      console.log(post)
-      navigate(`/post/${post.id}`);
-      setLoading(false);
-
+      if (dbPost) {
+        navigate(`/post/${dbPost.id}`);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
     } //while adding new post
     else {
       const file = await fileUploadService.uploadFile(data.image[0]);
