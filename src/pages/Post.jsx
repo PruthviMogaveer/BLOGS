@@ -14,9 +14,8 @@ const Post = () => {
   const [userId, setUserId] = useState();
 
   useEffect(() => {
-    console.log(slug)
-
     if (slug) {
+      console.log(slug)
       databaseService.getPost(slug).then((post) => {
         if (post) {
           authService
