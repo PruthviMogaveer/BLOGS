@@ -26,13 +26,13 @@ export class DatabaseService {
     }
   }
 
-  async updatePost(slug, { title, content, featuredImage, status }) {
+  async updatePost(slug, { title, content, featuredImage, status, userId }) {
     try {
       return await this.databases.updateDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
         slug,
-        { title, content, featuredImage, status }
+        { title, content, featuredImage, status, userId }
       );
     } catch (error) {
       console.log("Appwrite service :: updatePost :: error", error);

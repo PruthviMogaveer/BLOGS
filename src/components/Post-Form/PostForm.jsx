@@ -32,6 +32,7 @@ const PostForm = ({ post }) => {
 
   const submit = async (data) => {
     setLoading(true);
+    //while editing the post
     if (post) {
       const file = data.image[0]
         ? await fileUploadService.uploadFile(data.image[0])
@@ -39,17 +40,16 @@ const PostForm = ({ post }) => {
       if (file) {
         fileUploadService.deleteFile(post.featuredImage);
       }
-      const dbPost = await databaseService.updatePost(post.$id, {
+      await databaseService.updatePost(post.$id, {
         ...data,
         featuredImage: file ? file.$id : undefined,
       });
-      if (dbPost) {
-        navigate(`/post/${dbPost.id}`);
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
-    } else {
+      console.log(post)
+      navigate(`/post/${post.id}`);
+      setLoading(false);
+
+    } //while adding new post
+    else {
       const file = await fileUploadService.uploadFile(data.image[0]);
       if (file) {
         const fileId = file.$id;
