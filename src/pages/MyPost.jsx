@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import databaseService from "../appwrite/database_service";
 import authService from "../appwrite/auth_service";
 import { Container, Loader, PostCard } from "../components";
+
+// Memoizing PostCard to prevent unnecessary re-renders
+const MemoizedPostCard = React.memo(PostCard);
 
 const MyPost = () => {
   const [loading, setLoading] = useState(true);
@@ -16,25 +19,26 @@ const MyPost = () => {
     });
   }, []);
 
+  // Memoizing the filtered posts to avoid recalculating on every render
+  const memoizedPosts = useMemo(() => {
+    return posts.map((post) => (
+      <div key={post.$id} className="relative mb-16 mx-4">
+        {post.status === "inactive" && (
+          <div className="absolute z-10 bg-primary px-5 py-0 right-3 rounded-b-lg rounded-t-sm text-yellow ">
+            <p className="font-thin text-sm font-montserrat">Inactive</p>
+          </div>
+        )}
+        <MemoizedPostCard {...post} />
+      </div>
+    ));
+  }, [posts]);
+
   return !loading ? (
     posts.length > 0 ? (
       <div>
         <Container>
           <div className="flex flex-wrap justify-center max-sm:flex-col max-sm:justify-center mt-8 mx-10 max-sm:items-center max-sm:space-y-10">
-            {posts.map((post) => {
-              return (
-                <div key={post.$id} className="relative mb-16 mx-4">
-                  {post.status === "inactive" && (
-                    <div className="absolute z-10 bg-primary px-5 py-0 right-3 rounded-b-lg rounded-t-sm text-yellow ">
-                      <p className="font-thin text-sm font-montserrat">
-                        Inactive
-                      </p>
-                    </div>
-                  )}
-                  <PostCard {...post} />
-                </div>
-              );
-            })}
+            {memoizedPosts}
           </div>
         </Container>
       </div>
