@@ -1,12 +1,10 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Input, Button, RTE, Select, Loader } from "../index";
 import fileUploadService from "../../appwrite/file_service";
 import databaseService from "../../appwrite/database_service";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
-import { useState } from "react";
 
 const PostForm = ({ post }) => {
   const [loading, setLoading] = useState(false);
@@ -19,6 +17,7 @@ const PostForm = ({ post }) => {
     control,
     getValues,
     formState: { errors },
+    reset, // Added reset to reset form values when post changes
   } = useForm({
     defaultValues: {
       title: post?.title || "",
@@ -33,7 +32,6 @@ const PostForm = ({ post }) => {
 
   const submit = async (data) => {
     setLoading(true);
-    // If the post is already there and user wanted to edit it
     if (post) {
       const file = data.image[0]
         ? await fileUploadService.uploadFile(data.image[0])
@@ -51,8 +49,7 @@ const PostForm = ({ post }) => {
       } else {
         setLoading(false);
       }
-    } //if use panted to create new post
-    else {
+    } else {
       const file = await fileUploadService.uploadFile(data.image[0]);
       if (file) {
         const fileId = file.$id;
@@ -78,6 +75,18 @@ const PostForm = ({ post }) => {
     }
     return "";
   }, []);
+
+  // Set form values when post is available (for editing)
+  useEffect(() => {
+    if (post) {
+      reset({
+        title: post.title || "",
+        slug: post.slug || slugTransform(post.title),
+        content: post.content || "",
+        status: post.status || "active",
+      });
+    }
+  }, [post, reset, slugTransform]);
 
   useEffect(() => {
     const subscription = watch((value, { name }) => {
@@ -151,7 +160,7 @@ const PostForm = ({ post }) => {
               {...register("image", { required: !post })}
             />
             <div className="text-red-500 -bottom-3 text-sm max-sm:text-xs absolute">
-              {errors.image && <p>Featurd image required</p>}
+              {errors.image && <p>Featured image required</p>}
             </div>
           </div>
           {post && (
