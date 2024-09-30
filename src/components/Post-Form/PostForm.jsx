@@ -45,7 +45,7 @@ const PostForm = ({ post }) => {
         featuredImage: file ? file.$id : undefined,
       });
       if (dbPost) {
-        navigate(`/post/${dbPost.id}`);
+        navigate(`/post/${dbPost.$id}`);
         setLoading(false);
       } else {
         setLoading(false);
