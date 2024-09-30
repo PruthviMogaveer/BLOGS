@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Container, Loader, PostCard } from "../components";
 import databaseService from "../appwrite/database_service";
 
@@ -13,20 +13,21 @@ const AllPosts = () => {
     });
   }, []);
 
+  // Memoize the posts mapping logic to prevent recalculating it on every render
+  const activePosts = useMemo(() => {
+    return posts.filter(post => post.status === "active");
+  }, [posts]);
+
   return !loading ? (
-    posts.length > 0 ? (
+    activePosts.length > 0 ? (
       <div>
         <Container>
           <div className="flex flex-wrap justify-center max-sm:flex-col max-sm:justify-center mt-8 mx-10 max-sm:items-center max-sm:space-y-10">
-            {posts.map((post) => {
-              return (
-                post.status === "active" && (
-                  <div key={post.$id} className="mx-4 mb-16">
-                    <PostCard {...post} />
-                  </div>
-                )
-              );
-            })}
+            {activePosts.map((post) => (
+              <div key={post.$id} className="mx-4 mb-16">
+                <PostCard {...post} />
+              </div>
+            ))}
           </div>
         </Container>
       </div>

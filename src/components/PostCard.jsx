@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import fileUploadService from "../appwrite/file_service";
 import { Link } from "react-router-dom";
 
-const PostCard = ({ $id, title, featuredImage }) => {
+const PostCard = memo(({ $id, title, featuredImage }) => {
   return (
     <div className="relative pb-4 h-full w-52 shadow-post rounded-xl flex flex-col items-center overflow-hidden bg-white transition-transform duration-300 hover:scale-105">
       <div className="absolute -top-6 rotate-[14deg] bg-yellow z-0 w-72 h-32 "></div>
@@ -23,6 +23,6 @@ const PostCard = ({ $id, title, featuredImage }) => {
       </Link>
     </div>
   );
-};
+});
 
 export default PostCard;
