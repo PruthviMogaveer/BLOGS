@@ -13,10 +13,9 @@ const Post = () => {
   const { slug } = useParams();
   const [userId, setUserId] = useState();
 
-  useEffect(() => {
+  useEffect(async () => {
     if (slug) {
-      console.log(slug)
-      databaseService.getPost(slug).then((post) => {
+      await databaseService.getPost(slug).then((post) => {
         if (post) {
           authService
             .getCurrentUser()
